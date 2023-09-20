@@ -17,3 +17,4 @@ function getCurrentWeather(cityName) {
         });
 }
 
+// 5 day forecast retrieval
