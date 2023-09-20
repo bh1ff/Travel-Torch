@@ -44,3 +44,6 @@ function handleSearch() {
         console.warn("Please enter a city name.");
     }
 }
+
+// button integration
+document.getElementById("search-button").addEventListener("click", handleSearch);
