@@ -160,3 +160,7 @@ function get5DayForecast(cityName) {
 document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
+
+  // ----------------------------------
+// LOGIC FOR THE TRIPADVISOR API
+// ----------------------------------
