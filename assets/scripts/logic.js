@@ -18,3 +18,29 @@ function getCurrentWeather(cityName) {
 }
 
 // 5 day forecast retrieval
+function get5DayForecast(cityName) {
+    let queryURL = `${weatherBaseURL}forecast?q=${cityName}&appid=${apiKey}&units=imperial`;
+
+    fetch(queryURL)
+        .then(response => response.json())
+        .then(data => {
+            // Handle the data here or pass it to another function
+            console.log(data);
+            // You can also integrate the data into your UI here
+        })
+        .catch(error => {
+            console.error("Error fetching 5-day forecast:", error);
+        });
+}
+
+// Handle search function 
+function handleSearch() {
+    const cityName = document.getElementById("search-input").value.trim();
+    if (cityName) {
+        getCurrentWeather(cityName);
+        get5DayForecast(cityName);
+    } else {
+        // Handle empty input or show an error message to the user
+        console.warn("Please enter a city name.");
+    }
+}
