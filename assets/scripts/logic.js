@@ -4,6 +4,10 @@
 // ----------------------------------
 
 // Styling Notes for Design Team
+// ----------------------------------
+
+// Design for the OPEN WEATHER API
+// ----------------------------------
 // #currentWeather: 
 // This ID selector targets the div that contains the current weather information.
 
@@ -25,6 +29,10 @@
 // .forecast-date, .forecast-icon, .forecast-temperature, .forecast-humidity: 
 // These class selectors target the individual elements within each forecast day.
 
+// App Logic
+// ----------------------------------
+// LOGIC FOR THE OPENWEATHER API
+// ----------------------------------
 // API Refs
 const apiKey = "0b26a0d735f1c68e879212c2650e5b40"; // Your OpenWeatherMap API key
 const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
