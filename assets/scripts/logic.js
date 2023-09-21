@@ -178,8 +178,15 @@ document
 // .attractionImage: This class is for the image of each attraction.
 // It's an <img> element, and we will replace its src attribute with the actual image URL later.
 // --------------------------------
-// LOGIC FOR THE OpenTripMap API
+// LOGIC FOR THE OpenTripMap API && SerpAPI
 // ----------------------------------
+
+// Addition of SERP API For image retrieval 
+
+// Import SerpApi
+const SerpApi = require('google-search-results-nodejs');
+const search = new SerpApi.GoogleSearch("5180407f16258b8bd7959d7b76b1ba80af14fef715eb49a4107c149196e4e19b");
+
 
 // Define API key and endpoint
 var OTMAPI = '5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd';
