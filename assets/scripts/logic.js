@@ -161,6 +161,7 @@ document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
 
-  // ----------------------------------
+  // --------------------------------
 // LOGIC FOR THE TRIPADVISOR API
 // ----------------------------------
+//Begin
