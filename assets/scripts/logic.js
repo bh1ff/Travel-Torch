@@ -193,15 +193,51 @@ function OpenTripMapTest(cityName) {
 }
 
 // Function to fetch tourist attractions
-function getTouristAttractions(lat, lon) {
-  const tripUrl = `https://api.opentripmap.com/0.1/en/places/radius?apikey=${OTMAPI}&radius=1000&lon=${lon}&lat=${lat}&limit=10`;
-  fetch(tripUrl)
+function getTopAttractions(cityName, lat, lon) {
+  // Construct the API URL for OpenTripMap
+  const url = `http://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=${lon}&lat=${lat}&limit=5&apikey=${OTMAPI}`;
+
+  // Fetch data from OpenTripMap
+  fetch(url)
     .then(response => response.json())
     .then(data => {
-      console.log('Tourist Attractions:', data);
-      // Your logic to display tourist attractions goes here
+      // Get the 'info' section where we will append our data
+      const infoSection = document.getElementById("info");
+
+      // Create and append a title
+      const attractionsTitle = document.createElement("h1");
+      attractionsTitle.textContent = `Top Attractions in ${cityName}`;
+      attractionsTitle.id = "attractionsTitle"; // ID for the title of the attractions section
+      infoSection.appendChild(attractionsTitle);
+
+      // Loop through the top 5 attractions
+      let attractionNames = []; // To store the names of attractions
+      data.features.forEach((feature, index) => {
+        const attractionName = feature.properties.name;
+        attractionNames.push(attractionName); // Storing the name for later use
+
+        // Create and append attraction name
+        const attractionElement = document.createElement("h2");
+        attractionElement.textContent = attractionName;
+        attractionElement.className = "attractionName"; // Class for each attraction name
+        infoSection.appendChild(attractionElement);
+
+        // Create and append Wikipedia data (assuming it's in the 'wikidata' property)
+        const wikiData = document.createElement("p");
+        wikiData.textContent = feature.properties.wikidata; // Replace with actual data path
+        wikiData.className = "wikiData"; // Class for Wikipedia data of each attraction
+        infoSection.appendChild(wikiData);
+
+        // Create and append a placeholder for the image
+        const imagePlaceholder = document.createElement("img");
+        imagePlaceholder.src = "#"; // Placeholder URL, to be replaced later
+        imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
+        infoSection.appendChild(imagePlaceholder);
+      });
+
+      console.log("Attraction Names Stored:", attractionNames);
     })
     .catch(error => {
-      console.error('Error fetching tourist attractions:', error);
+      console.error('Error fetching data from OpenTripMap:', error);
     });
 }
