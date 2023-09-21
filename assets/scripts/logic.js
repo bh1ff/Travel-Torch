@@ -169,10 +169,6 @@ document
 // ----------------------------------
 // Define API key and endpoint
 var OTMAPI = '5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd';
-const lat = '48.8566'; // Latitude for Paris
-const lon = '2.3522'; // Longitude for Paris
-const radius = '1000'; // Search within 1000 meters
-const kinds = 'historic'; // Type of tourist attractions
 
 function OpenTripMapTest(cityName){
 // Construct the API URL
