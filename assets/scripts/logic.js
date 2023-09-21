@@ -167,7 +167,7 @@ document
 // API Key Trip Advisor
 const options = {method: 'GET', headers: {accept: 'application/json'}};
 
-fetch('https://api.content.tripadvisor.com/api/v1/location/187148/details?key=09D1FDB02A2F456886DF7D9B90BF274B&key=6C1557D1C2EE42C2B135FF853A6CA060&language=en&currency=GBP', options)
+fetch('https://api.content.tripadvisor.com/api/v1/location/187147/photos?language=en&key=6C1557D1C2EE42C2B135FF853A6CA060', options)
   .then(response => response.json())
   .then(response => console.log(response))
   .catch(err => console.error(err));
