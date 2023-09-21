@@ -123,6 +123,9 @@ function handleSearch() {
   if (cityName) {
     getCurrentWeather(cityName);
     get5DayForecast(cityName);
+    //open trip map test call
+    OpenTripMapTest(cityName);
+
   } else {
     console.warn("Please enter a city name.");
   }
@@ -165,16 +168,18 @@ document
 // LOGIC FOR THE OpenTripMap API
 // ----------------------------------
 // Define API key and endpoint
-const OTMAPI = '5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd';
+var OTMAPI = '5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd';
 const lat = '48.8566'; // Latitude for Paris
 const lon = '2.3522'; // Longitude for Paris
 const radius = '1000'; // Search within 1000 meters
 const kinds = 'historic'; // Type of tourist attractions
 
+function OpenTripMapTest(cityName){
 // Construct the API URL
-const url = `http://api.opentripmap.com/0.1/en/places/geoname?name=london&apikey=5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd`;
+const url = `http://api.opentripmap.com/0.1/en/places/geoname?name=${cityName}&apikey=${OTMAPI}`;
 
 // Fetch data from OpenTripMap
+
 fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -184,3 +189,4 @@ fetch(url)
   .catch(error => {
     console.error('Error fetching data from OpenTripMap:', error);
   });
+};
