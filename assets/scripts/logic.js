@@ -8,25 +8,25 @@
 
 // Design for the OPEN WEATHER API
 // ----------------------------------
-// #currentWeather: 
+// #currentWeather:
 // This ID selector targets the div that contains the current weather information.
 
-// .current-weather: 
+// .current-weather:
 // This class selector can be used to style the current weather div.
 
-// .city-name, .current-temperature, .current-humidity, .current-wind-speed: 
+// .city-name, .current-temperature, .current-humidity, .current-wind-speed:
 // These class selectors target the individual elements within the current weather div.
 
-// #fiveDayForecast: 
+// #fiveDayForecast:
 // This ID selector targets the div that contains the 5-day forecast.
 
-// .forecast-div: 
+// .forecast-div:
 // This class selector can be used to style the 5-day forecast div.
 
-// .forecast-day: 
+// .forecast-day:
 // This class selector targets each individual day within the 5-day forecast.
 
-// .forecast-date, .forecast-icon, .forecast-temperature, .forecast-humidity: 
+// .forecast-date, .forecast-icon, .forecast-temperature, .forecast-humidity:
 // These class selectors target the individual elements within each forecast day.
 
 // App Logic
@@ -161,6 +161,13 @@ document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
 
-  // ----------------------------------
+// --------------------------------
 // LOGIC FOR THE TRIPADVISOR API
 // ----------------------------------
+// API Key Trip Advisor
+const options = {method: 'GET', headers: {accept: 'application/json'}};
+
+fetch('https://api.content.tripadvisor.com/api/v1/location/187147/photos?language=en&key=6C1557D1C2EE42C2B135FF853A6CA060', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
