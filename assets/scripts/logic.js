@@ -244,11 +244,33 @@ function getTopAttractions(cityName, lat, lon) {
         imagePlaceholder.src = "#"; // Placeholder URL, to be replaced later
         imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
         infoDiv.appendChild(imagePlaceholder);
+
+        getTopImageForAttraction(attractionNames);
       });
 
       console.log("Attraction Names Stored:", attractionNames);
+      
+
     })
     .catch(error => {
       console.error('Error fetching data from OpenTripMap:', error);
+    });
+}
+
+
+// testing the new method of retrieval 
+function getTopImageForAttraction(attractionName) {
+  const apiKey = "5180407f16258b8bd7959d7b76b1ba80af14fef715eb49a4107c149196e4e19b";
+  const query = encodeURIComponent(attractionName);
+  const url = `https://serpapi.com/search.json?q=${query}&engine=google_images&ijn=0&api_key=${apiKey}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const imageUrl = data.images_results[0].link;
+      // Update your image src here
+    })
+    .catch(error => {
+      console.error('Error fetching image:', error);
     });
 }
