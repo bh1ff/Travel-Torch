@@ -165,6 +165,26 @@ document
   .addEventListener("click", handleSearch);
 
 // --------------------------------
+
+// Styling Notes for Design Team
+// ----------------------------------
+
+// Design for the OPEN TRIP MAP API
+// ----------------------------------
+// #attractionsTitle: This ID is for the title of the attractions section. 
+// It's an <h1> element that displays "Top Attractions in [City Name]".
+
+// .attractionName: This class is for each attraction name. 
+// They are <h2> elements that display the name of the attraction.
+
+// .wikiData: This class is for the Wikipedia data of each attraction. 
+// It's a <p> element that displays a brief description or data from Wikipedia for each attraction.
+
+// .attractionImage: This class is for the image of each attraction. 
+// It's an <img> element, and we will replace its src attribute with the actual image URL later.
+
+
+
 // LOGIC FOR THE OpenTripMap API
 // ----------------------------------
 // Define API key and endpoint
