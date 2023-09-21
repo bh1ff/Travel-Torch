@@ -8,25 +8,25 @@
 
 // Design for the OPEN WEATHER API
 // ----------------------------------
-// #currentWeather: 
+// #currentWeather:
 // This ID selector targets the div that contains the current weather information.
 
-// .current-weather: 
+// .current-weather:
 // This class selector can be used to style the current weather div.
 
-// .city-name, .current-temperature, .current-humidity, .current-wind-speed: 
+// .city-name, .current-temperature, .current-humidity, .current-wind-speed:
 // These class selectors target the individual elements within the current weather div.
 
-// #fiveDayForecast: 
+// #fiveDayForecast:
 // This ID selector targets the div that contains the 5-day forecast.
 
-// .forecast-div: 
+// .forecast-div:
 // This class selector can be used to style the 5-day forecast div.
 
-// .forecast-day: 
+// .forecast-day:
 // This class selector targets each individual day within the 5-day forecast.
 
-// .forecast-date, .forecast-icon, .forecast-temperature, .forecast-humidity: 
+// .forecast-date, .forecast-icon, .forecast-temperature, .forecast-humidity:
 // These class selectors target the individual elements within each forecast day.
 
 // App Logic
@@ -161,7 +161,30 @@ document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
 
-  // --------------------------------
+// --------------------------------
 // LOGIC FOR THE TRIPADVISOR API
 // ----------------------------------
-//Begin
+// API Key Trip Advisor
+const tripAdvisorAPIKey = "09D1FDB02A2F456886DF7D9B90BF274B"; // Store API key as a variable
+
+function testTripAdvisorConnection() {
+  const city = "London"; // Replace with the city you want to test
+  const url = `https://api.tripadvisor.com/api/partner/2.0/search/${city}?key=${tripAdvisorApiKey}`;
+
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("Successfully fetched data from TripAdvisor:", data);
+    })
+    .catch(error => {
+      console.log("Error fetching data from TripAdvisor:", error);
+    });
+}
+
+// Call the function to test the connection
+testTripAdvisorConnection();
