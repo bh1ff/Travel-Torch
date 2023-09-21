@@ -255,30 +255,3 @@ function getTopAttractions(cityName, lat, lon) {
       console.error('Error fetching data from OpenTripMap:', error);
     });
 }
-
-// API TEST FOR SERP API JS 
-function testSerpApi() {
-  const apiKey = "5180407f16258b8bd7959d7b76b1ba80af14fef715eb49a4107c149196e4e19b";
-  const query = encodeURIComponent("apple");
-  const url = `https://serpapi.com/search.json?q=${query}&engine=google_images&ijn=0&api_key=${apiKey}`;
-
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      const imageUrl = data.images_results[0].link;
-      const footer = document.querySelector("footer");
-      const imgElement = document.createElement("img");
-
-      imgElement.src = imageUrl;
-      imgElement.alt = "Test Image";
-      imgElement.width = 200; // You can set the dimensions as you like
-
-      footer.appendChild(imgElement);
-    })
-    .catch(error => {
-      console.error('Error fetching image:', error);
-    });
-}
-
-// Call the function to test
-testSerpApi();
