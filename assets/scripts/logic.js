@@ -170,19 +170,38 @@ document
 // Define API key and endpoint
 var OTMAPI = '5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd';
 
-function OpenTripMapTest(cityName){
-// Construct the API URL
-const url = `http://api.opentripmap.com/0.1/en/places/geoname?name=${cityName}&apikey=${OTMAPI}`;
+function OpenTripMapTest(cityName) {
+  // Construct the API URL
+  const url = `http://api.opentripmap.com/0.1/en/places/geoname?name=${cityName}&apikey=${OTMAPI}`;
 
-// Fetch data from OpenTripMap
+  // Fetch data from OpenTripMap
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      console.log('OpenTripMap Data:', data);
+      
+      // Store latitude and longitude in variables
+      const lat = data.lat;
+      const lon = data.lon;
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    console.log('OpenTripMap Data:', data);
-    // Your logic to display the data goes here
-  })
-  .catch(error => {
-    console.error('Error fetching data from OpenTripMap:', error);
-  });
-};
+      // Use latitude and longitude to fetch tourist attractions
+      getTouristAttractions(lat, lon);
+    })
+    .catch(error => {
+      console.error('Error fetching data from OpenTripMap:', error);
+    });
+}
+
+// Function to fetch tourist attractions
+function getTouristAttractions(lat, lon) {
+  const tripUrl = `https://api.opentripmap.com/0.1/en/places/radius?apikey=${OTMAPI}&radius=1000&lon=${lon}&lat=${lat}&limit=10`;
+  fetch(tripUrl)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Tourist Attractions:', data);
+      // Your logic to display tourist attractions goes here
+    })
+    .catch(error => {
+      console.error('Error fetching tourist attractions:', error);
+    });
+}
