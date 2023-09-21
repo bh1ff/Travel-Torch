@@ -125,7 +125,6 @@ function handleSearch() {
     get5DayForecast(cityName);
     //open trip map test call
     OpenTripMapTest(cityName);
-
   } else {
     console.warn("Please enter a city name.");
   }
@@ -165,14 +164,14 @@ document
   .addEventListener("click", handleSearch);
 
 // --------------------------------
-// Notes for the Styling Team 
-// #attractionsTitle: This ID is for the title of the attractions section. 
+// Notes for the Styling Team
+// #attractionsTitle: This ID is for the title of the attractions section.
 // It's an <h1> element that displays "Top Attractions in [City Name]".
 
-// .attractionName: This class is for each attraction name. 
+// .attractionName: This class is for each attraction name.
 //They are <h2> elements that display the name of the attraction.
 
-// .wikiData: This class is for the Wikipedia data of each attraction. 
+// .wikiData: This class is for the Wikipedia data of each attraction.
 //It's a <p> element that displays a brief description or data from Wikipedia for each attraction.
 
 // .attractionImage: This class is for the image of each attraction.
@@ -182,7 +181,7 @@ document
 // ----------------------------------
 
 // Define API key and endpoint
-var OTMAPI = '5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd';
+var OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
 
 function OpenTripMapTest(cityName) {
   // Construct the API URL
@@ -190,17 +189,17 @@ function OpenTripMapTest(cityName) {
 
   // Fetch data from OpenTripMap
   fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      console.log('OpenTripMap Data:', data);
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("OpenTripMap Data:", data);
       // Get latitude and longitude
       const lat = data.lat;
       const lon = data.lon;
       // Fetch top attractions using latitude and longitude
       getTopAttractions(cityName, lat, lon);
     })
-    .catch(error => {
-      console.error('Error fetching data from OpenTripMap:', error);
+    .catch((error) => {
+      console.error("Error fetching data from OpenTripMap:", error);
     });
 }
 
@@ -208,8 +207,8 @@ function getTopAttractions(cityName, lat, lon) {
   const url = `http://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=${lon}&lat=${lat}&limit=5&apikey=${OTMAPI}`;
 
   fetch(url)
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       const infoDiv = document.getElementById("info");
 
       const attractionsTitle = document.createElement("h1");
@@ -232,26 +231,11 @@ function getTopAttractions(cityName, lat, lon) {
         const imagePlaceholder = document.createElement("img");
         imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
         infoDiv.appendChild(imagePlaceholder);
-
-        // Fetch the top image for this attraction from SerpApi
-        const serpApiKey = "5180407f16258b8bd7959d7b76b1ba80af14fef715eb49a4107c149196e4e19b";
-        const serpApiUrl = `https://serpapi.com/search.json?q=${attractionName}&engine=google_images&ijn=0&api_key=${serpApiKey}`;
-
-        fetch(serpApiUrl, {mode: 'no-cors'})
-          .then(response => response.json())
-          .then(data => {
-            const imageUrl = data.images_results[0].original;
-            imagePlaceholder.src = imageUrl;
-          })
-          .catch(error => {
-            console.error(`Error fetching image for ${attractionName}:`, error);
-          });
       });
 
       console.log("Attraction Names Stored:", attractionNames);
-
     })
-    .catch(error => {
-      console.error('Error fetching data from OpenTripMap:', error);
+    .catch((error) => {
+      console.error("Error fetching data from OpenTripMap:", error);
     });
 }
