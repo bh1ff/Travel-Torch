@@ -205,50 +205,50 @@ function OpenTripMapTest(cityName) {
 }
 
 function getTopAttractions(cityName, lat, lon) {
-  // Construct the API URL for OpenTripMap
   const url = `http://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=${lon}&lat=${lat}&limit=5&apikey=${OTMAPI}`;
 
-  // Fetch data from OpenTripMap
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      // Get the 'info' section where we will append our data
       const infoDiv = document.getElementById("info");
 
-      // Create and append a title
       const attractionsTitle = document.createElement("h1");
       attractionsTitle.textContent = `Top Attractions in ${cityName}`;
       attractionsTitle.id = "attractionsTitle"; // ID for the title of the attractions section
       infoDiv.appendChild(attractionsTitle);
 
-      // Loop through the top 5 attractions
       let attractionNames = []; // To store the names of attractions
+
       data.features.forEach((feature, index) => {
         const attractionName = feature.properties.name;
         attractionNames.push(attractionName); // Storing the name for later use
 
-        // Create and append attraction name
         const attractionElement = document.createElement("h2");
         attractionElement.textContent = attractionName;
         attractionElement.className = "attractionName"; // Class for each attraction name
         infoDiv.appendChild(attractionElement);
 
-        // Create and append Wikipedia data (assuming it's in the 'wikidata' property)
-        // const wikiData = document.createElement("p");
-        // wikiData.textContent = feature.properties.wikidata; // Replace with actual data path
-        // wikiData.className = "wikiData"; // Class for Wikipedia data of each attraction
-        // infoDiv.appendChild(wikiData);
-
-        // Create and append a placeholder for the image
+        // Placeholder for image
         const imagePlaceholder = document.createElement("img");
-        imagePlaceholder.src = "#"; // Placeholder URL, to be replaced later
         imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
         infoDiv.appendChild(imagePlaceholder);
 
+        // Fetch the top image for this attraction from SerpApi
+        const serpApiKey = "5180407f16258b8bd7959d7b76b1ba80af14fef715eb49a4107c149196e4e19b";
+        const serpApiUrl = `https://serpapi.com/search.json?q=${attractionName}&engine=google_images&ijn=0&api_key=${serpApiKey}`;
+
+        fetch(serpApiUrl, {mode: 'no-cors'})
+          .then(response => response.json())
+          .then(data => {
+            const imageUrl = data.images_results[0].original;
+            imagePlaceholder.src = imageUrl;
+          })
+          .catch(error => {
+            console.error(`Error fetching image for ${attractionName}:`, error);
+          });
       });
 
       console.log("Attraction Names Stored:", attractionNames);
-      
 
     })
     .catch(error => {
