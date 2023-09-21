@@ -162,12 +162,25 @@ document
   .addEventListener("click", handleSearch);
 
 // --------------------------------
-// LOGIC FOR THE TRIPADVISOR API
+// LOGIC FOR THE OpenTripMap API
 // ----------------------------------
-// API Key Trip Advisor
-const options = {method: 'GET', headers: {accept: 'application/json'}};
+// Define API key and endpoint
+const OTMAPI = '5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd';
+const lat = '48.8566'; // Latitude for Paris
+const lon = '2.3522'; // Longitude for Paris
+const radius = '1000'; // Search within 1000 meters
+const kinds = 'historic'; // Type of tourist attractions
 
-fetch('https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=42%2C-71&language=en&key=6C1557D1C2EE42C2B135FF853A6CA060', options)
+// Construct the API URL
+const url = `http://api.opentripmap.com/0.1/en/places/geoname?name=london&apikey=5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd`;
+
+// Fetch data from OpenTripMap
+fetch(url)
   .then(response => response.json())
-  .then(response => console.log(response))
-  .catch(err => console.error(err));
+  .then(data => {
+    console.log('OpenTripMap Data:', data);
+    // Your logic to display the data goes here
+  })
+  .catch(error => {
+    console.error('Error fetching data from OpenTripMap:', error);
+  });
