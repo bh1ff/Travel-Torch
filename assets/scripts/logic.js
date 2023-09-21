@@ -227,7 +227,7 @@ function getTopAttractions(cityName, lat, lon) {
         attractionElement.className = "attractionName"; // Class for each attraction name
         infoDiv.appendChild(attractionElement);
 
-        // Placeholder for image
+       d // Placeholder for image
         const imagePlaceholder = document.createElement("img");
         imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
         infoDiv.appendChild(imagePlaceholder);
