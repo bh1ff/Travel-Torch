@@ -241,19 +241,27 @@ function getTopAttractions(cityName, lat, lon) {
 }
 
 // google custom search api key
-const googleAPIKey = `AIzaSyDUT0XknlL2dbH-eGlu_tPQvs7xh_tMb48`;
-const searchEngineID = '86916a4c88909494d'; // Replace with your actual Custom Search Engine ID
-const query = 'A Conversation with Oscar Wilde'; // The search term
+const googleAPIKey = 'AIzaSyDUT0XknlL2dbH-eGlu_tPQvs7xh_tMb48';
 
-// Construct the API URL
-const url = `https://www.googleapis.com/customsearch/v1?q=${query}&key=${googleAPIKey}&cx=${searchEngineID}`;
+// custom Search Engine created that only searches through tripadvisor.com :) 
+const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
 
-// Fetch data from Google Custom Search
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    console.log('Google Custom Search Data:', data);
-  })
-  .catch(error => {
-    console.error('Error fetching data from Google Custom Search:', error);
-  });
+function searchImages(query) {
+  const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&key=${googleAPIKey}&cx=${cx}`;
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data.items && data.items.length > 0) {
+        const imageUrls = data.items.map(item => item.link);
+        console.log('Image URLs:', imageUrls);
+      } else {
+        console.log('No image results found.');
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching image search results:', error);
+    });
+}
+
+searchImages('A conversation with Oscar Wilde')
