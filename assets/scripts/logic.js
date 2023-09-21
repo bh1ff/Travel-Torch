@@ -239,3 +239,21 @@ function getTopAttractions(cityName, lat, lon) {
       console.error("Error fetching data from OpenTripMap:", error);
     });
 }
+
+// google custom search api key
+const googleAPIKey = `AIzaSyDUT0XknlL2dbH-eGlu_tPQvs7xh_tMb48`;
+const searchEngineID = '86916a4c88909494d'; // Replace with your actual Custom Search Engine ID
+const query = 'test'; // The search term
+
+// Construct the API URL
+const url = `https://www.googleapis.com/customsearch/v1?q=${query}&key=${googleAPIKey}&cx=${searchEngineID}`;
+
+// Fetch data from Google Custom Search
+fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    console.log('Google Custom Search Data:', data);
+  })
+  .catch(error => {
+    console.error('Error fetching data from Google Custom Search:', error);
+  });
