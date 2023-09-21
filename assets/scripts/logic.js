@@ -165,26 +165,9 @@ document
 // LOGIC FOR THE TRIPADVISOR API
 // ----------------------------------
 // API Key Trip Advisor
-const tripAdvisorAPIKey = "09D1FDB02A2F456886DF7D9B90BF274B"; // Store API key as a variable
+const options = {method: 'GET', headers: {accept: 'application/json'}};
 
-function testTripAdvisorConnection() {
-  const city = "London"; // Replace with the city you want to test
-  const url = `https://api.tripadvisor.com/api/partner/2.0/search/${city}?key=${tripAdvisorApiKey}`;
-
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log("Successfully fetched data from TripAdvisor:", data);
-    })
-    .catch(error => {
-      console.log("Error fetching data from TripAdvisor:", error);
-    });
-}
-
-// Call the function to test the connection
-testTripAdvisorConnection();
+fetch('https://api.content.tripadvisor.com/api/v1/location/187148/details?key=09D1FDB02A2F456886DF7D9B90BF274B&key=6C1557D1C2EE42C2B135FF853A6CA060&language=en&currency=GBP', options)
+  .then(response => response.json())
+  .then(response => console.log(response))
+  .catch(err => console.error(err));
