@@ -54,7 +54,8 @@ function displayCurrentWeather(data) {
   cityName.classList.add("city-name");
 
   const temperature = document.createElement("p");
-  temperature.textContent = `Temperature: ${data.main.temp}°F`;
+  temperature.textContent = `Temperature: ${data.main.temp}°C`;
+  console.log(data.main)
   temperature.classList.add("current-temperature");
 
   const humidity = document.createElement("p");
@@ -99,7 +100,7 @@ function display5DayForecast(data) {
     icon.classList.add("forecast-icon");
 
     const temp = document.createElement("p");
-    temp.textContent = `Temp: ${dayData.main.temp}°F`;
+    temp.textContent = `Temp: ${dayData.main.temp}°C`;
     temp.classList.add("forecast-temperature");
 
     const humidity = document.createElement("p");
@@ -132,7 +133,7 @@ function handleSearch() {
 
 // current weather retrieval function
 function getCurrentWeather(cityName) {
-  let queryURL = `${weatherBaseURL}weather?q=${cityName}&appid=${apiKey}&units=imperial`;
+  let queryURL = `${weatherBaseURL}weather?q=${cityName}&appid=${apiKey}&units=metric`;
 
   fetch(queryURL)
     .then((response) => response.json())
@@ -146,7 +147,7 @@ function getCurrentWeather(cityName) {
 
 // five day forecast retrieval function
 function get5DayForecast(cityName) {
-  let queryURL = `${weatherBaseURL}forecast?q=${cityName}&appid=${apiKey}&units=imperial`;
+  let queryURL = `${weatherBaseURL}forecast?q=${cityName}&appid=${apiKey}&units=metric`;
 
   fetch(queryURL)
     .then((response) => response.json())
@@ -203,79 +204,63 @@ function OpenTripMapTest(cityName) {
     });
 }
 
-function getTopAttractions(cityName, lat, lon) {
-  const url = `http://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=${lon}&lat=${lat}&limit=5&apikey=${OTMAPI}`;
-
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      const infoDiv = document.getElementById("info");
-
-      const attractionsTitle = document.createElement("h1");
-      attractionsTitle.textContent = `Top Attractions in ${cityName}`;
-      attractionsTitle.id = "attractionsTitle"; // ID for the title of the attractions section
-      infoDiv.appendChild(attractionsTitle);
-
-      let attractionNames = []; // To store the names of attractions
-
-      data.features.forEach((feature, index) => {
-        const attractionName = feature.properties.name;
-        attractionNames.push(attractionName); // Storing the name for later use
-
-        const attractionElement = document.createElement("h2");
-        attractionElement.textContent = attractionName;
-        attractionElement.className = "attractionName"; // Class for each attraction name
-        infoDiv.appendChild(attractionElement);
-
-        searchImages(attractionName)
-       // Placeholder for image
-        const imagePlaceholder = document.createElement(imageOne);
-        imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
-        const imagePlaceholder2 = document.createElement(imageTwo);
-        imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
-        const imagePlaceholder3 = document.createElement(imageThree);
-        imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
-        infoDiv.appendChild(imagePlaceholder);
-      });
-
-      console.log("Attraction Names Stored:", attractionNames);
-    })
-    .catch((error) => {
-      console.error("Error fetching data from OpenTripMap:", error);
-    });
-}
-
 // google custom search api key
 const googleAPIKey = 'AIzaSyDUT0XknlL2dbH-eGlu_tPQvs7xh_tMb48';
 
 // custom Search Engine created that only searches through tripadvisor.com :) 
 const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
 
-// function to check if i can return individual URLs
-function searchImages(query) {
-  const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&key=${googleAPIKey}&cx=${cx}`;
+// function to get the city attractions and append the document
+function getTopAttractions(cityName, lat, lon) {
+  const url = `http://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=${lon}&lat=${lat}&limit=5&apikey=${OTMAPI}`;
 
   fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.items && data.items.length > 0) {
-        const imageUrls = data.items.map(item => item.link);
+    .then((response) => response.json())
+    .then(async (data) => {
+      const infoDiv = document.getElementById("info");
 
-        // Store the top three image URLs as separate variables
-        const imageOne = imageUrls[0] || null;
-        const imageTwo = imageUrls[1] || null;
-        const imageThree = imageUrls[2] || null;
+      const attractionsTitle = document.createElement("h1");
+      attractionsTitle.textContent = `Top Attractions in ${cityName}`;
+      attractionsTitle.id = "attractionsTitle";
+      infoDiv.appendChild(attractionsTitle);
 
-        console.log('Image One URL:', imageOne);
-        console.log('Image Two URL:', imageTwo);
-        console.log('Image Three URL:', imageThree);
-      } else {
-        console.log('No image results found.');
+      for (const feature of data.features) {
+        const attractionName = feature.properties.name;
+
+        const attractionElement = document.createElement("h2");
+        attractionElement.textContent = attractionName;
+        attractionElement.className = "attractionName";
+        infoDiv.appendChild(attractionElement);
+
+        const imageUrls = await searchImages(attractionName);
+        if (imageUrls && imageUrls.length) {
+          const imagePlaceholder = document.createElement("img");
+          imagePlaceholder.src = imageUrls[0];
+          imagePlaceholder.className = "attractionImage";
+          infoDiv.appendChild(imagePlaceholder);
+        }
       }
     })
-    .catch(error => {
-      console.error('Error fetching image search results:', error);
+    .catch((error) => {
+      console.error("Error fetching data from OpenTripMap:", error);
     });
 }
 
-// searchImages('A conversation with Oscar Wilde');
+function searchImages(query) {
+  const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&key=${googleAPIKey}&cx=${cx}`;
+
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data.items && data.items.length > 0) {
+        return data.items.map(item => item.link);
+      } else {
+        console.log('No image results found for:', query);
+        return [];
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching image search results for:', query, error);
+      return [];
+    });
+}
