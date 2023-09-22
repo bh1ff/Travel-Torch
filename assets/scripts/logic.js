@@ -227,8 +227,13 @@ function getTopAttractions(cityName, lat, lon) {
         attractionElement.className = "attractionName"; // Class for each attraction name
         infoDiv.appendChild(attractionElement);
 
+        searchImages(attractionName)
        // Placeholder for image
-        const imagePlaceholder = document.createElement("img");
+        const imagePlaceholder = document.createElement(imageOne);
+        imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
+        const imagePlaceholder2 = document.createElement(imageTwo);
+        imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
+        const imagePlaceholder3 = document.createElement(imageThree);
         imagePlaceholder.className = "attractionImage"; // Class for the image of each attraction
         infoDiv.appendChild(imagePlaceholder);
       });
@@ -273,4 +278,4 @@ function searchImages(query) {
     });
 }
 
-searchImages('A conversation with Oscar Wilde');
+// searchImages('A conversation with Oscar Wilde');
