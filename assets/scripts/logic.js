@@ -184,6 +184,7 @@ document
 // Define API key and endpoint
 var OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
 
+// Inputs city name and returns longitude and latitude (logic) 
 function OpenTripMapTest(cityName) {
   // Construct the API URL
   const url = `http://api.opentripmap.com/0.1/en/places/geoname?name=${cityName}&apikey=${OTMAPI}`;
@@ -246,6 +247,7 @@ function getTopAttractions(cityName, lat, lon) {
     });
 }
 
+// retrieve images from custom search engine logic 
 function searchImages(query) {
   const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&key=${googleAPIKey}&cx=${cx}`;
 
