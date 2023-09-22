@@ -246,6 +246,7 @@ const googleAPIKey = 'AIzaSyDUT0XknlL2dbH-eGlu_tPQvs7xh_tMb48';
 // custom Search Engine created that only searches through tripadvisor.com :) 
 const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
 
+// function to check if i can return individual URLs
 function searchImages(query) {
   const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&key=${googleAPIKey}&cx=${cx}`;
 
@@ -254,7 +255,15 @@ function searchImages(query) {
     .then(data => {
       if (data.items && data.items.length > 0) {
         const imageUrls = data.items.map(item => item.link);
-        console.log('Image URLs:', imageUrls);
+
+        // Store the top three image URLs as separate variables
+        const imageOne = imageUrls[0] || null;
+        const imageTwo = imageUrls[1] || null;
+        const imageThree = imageUrls[2] || null;
+
+        console.log('Image One URL:', imageOne);
+        console.log('Image Two URL:', imageTwo);
+        console.log('Image Three URL:', imageThree);
       } else {
         console.log('No image results found.');
       }
@@ -264,4 +273,4 @@ function searchImages(query) {
     });
 }
 
-searchImages('A conversation with Oscar Wilde')
+searchImages('A conversation with Oscar Wilde');
