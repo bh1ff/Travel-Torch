@@ -21,3 +21,17 @@
     font-size: 16px;
     margin-left: 10px; 
 }
+
+/* css for image container in savedTrips.html */
+.image-container {
+    position: relative;
+    padding-top: 35%; /* 16:9 Aspect Ratio (9 / 16 * 100) */
+}
+
+.image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
