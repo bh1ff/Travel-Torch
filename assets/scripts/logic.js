@@ -35,8 +35,10 @@
 // ----------------------------------
 // API Refs
 const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
-// import all from config.js (hidden file )
-import { googleAPIKey, OTMAPI, apiKey } from '../../config.js';
+
+const OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
+const apiKey = "0b26a0d735f1c68e879212c2650e5b40";
+const  unsplashAPIKey  = 'WDHxakYJ8jr7zoBMf4nvqqelgHRX0drmw_4XjrTRpuA';
 
 // display weather function
 function displayCurrentWeather(data) {
@@ -126,7 +128,7 @@ function handleSearch() {
     getCurrentWeather(cityName);
     get5DayForecast(cityName);
     //open trip map test call
-    OpenTripMapTest(cityName);
+    getAttractions(cityName);
   } else {
     console.warn("Please enter a city name.");
   }
@@ -185,84 +187,78 @@ document
 // Define API key and endpoint
 
 // Inputs city name and returns longitude and latitude (logic) 
-function OpenTripMapTest(cityName) {
-  // Construct the API URL
-  const url = `http://api.opentripmap.com/0.1/en/places/geoname?name=${cityName}&apikey=${OTMAPI}`;
+const hereAPIKey = '5YvWYuR8_pAQ8BkivCS2ErXdbj46NbD2QKZflflq9Nc'; // Replace with your Here API key
 
-  // Fetch data from OpenTripMap
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("OpenTripMap Data:", data);
-      // Get latitude and longitude
-      const lat = data.lat;
-      const lon = data.lon;
-      // Fetch top attractions using latitude and longitude
-      getTopAttractions(cityName, lat, lon);
-    })
-    .catch((error) => {
-      console.error("Error fetching data from OpenTripMap:", error);
-    });
+function getAttractions(cityName) {
+    const url = `https://geocode.search.hereapi.com/v1/geocode?q=${cityName}&apiKey=${hereAPIKey}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.items && data.items.length > 0) {
+                const lat = data.items[0].position.lat;
+                const lon = data.items[0].position.lng;
+                fetchTopAttractions(cityName, lat, lon);
+            } else {
+                console.warn('No location data found for:', cityName);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching location data:', error);
+        });
 }
 
-// google custom search api key
+function fetchTopAttractions(cityName, lat, lon) {
+    const url = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}&lang=en-GB`;
 
+    fetch(url)
+        .then(response => response.json())
+        .then(async data => {
+            const infoDiv = document.getElementById("info");
 
-// custom Search Engine created that only searches through tripadvisor.com :) 
-const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
+            const attractionsTitle = document.createElement("h1");
+            attractionsTitle.textContent = `Top Attractions in ${cityName}`;
+            attractionsTitle.id = "attractionsTitle";
+            infoDiv.appendChild(attractionsTitle);
 
-// function to get the city attractions and append the document
-function getTopAttractions(cityName, lat, lon) {
-  const url = `http://api.opentripmap.com/0.1/en/places/radius?radius=10000&lon=${lon}&lat=${lat}&limit=5&apikey=${OTMAPI}`;
+            for (const item of data.items) {
+                const attractionName = item.title;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then(async (data) => {
-      const infoDiv = document.getElementById("info");
+                const attractionElement = document.createElement("h2");
+                attractionElement.textContent = attractionName;
+                attractionElement.className = "attractionName";
+                infoDiv.appendChild(attractionElement);
 
-      const attractionsTitle = document.createElement("h1");
-      attractionsTitle.textContent = `Top Attractions in ${cityName}`;
-      attractionsTitle.id = "attractionsTitle";
-      infoDiv.appendChild(attractionsTitle);
-
-      for (const feature of data.features) {
-        const attractionName = feature.properties.name;
-
-        const attractionElement = document.createElement("h2");
-        attractionElement.textContent = attractionName;
-        attractionElement.className = "attractionName";
-        infoDiv.appendChild(attractionElement);
-
-        const imageUrls = await searchImages(attractionName);
-        if (imageUrls && imageUrls.length) {
-          const imagePlaceholder = document.createElement("img");
-          imagePlaceholder.src = imageUrls[0];
-          imagePlaceholder.className = "attractionImage";
-          infoDiv.appendChild(imagePlaceholder);
-        }
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching data from OpenTripMap:", error);
-    });
+                const imageUrls = await searchImages(attractionName);
+                if (imageUrls && imageUrls.length) {
+                    const imagePlaceholder = document.createElement("img");
+                    imagePlaceholder.src = imageUrls[0];
+                    imagePlaceholder.className = "attractionImage";
+                    infoDiv.appendChild(imagePlaceholder);
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching top attractions:', error);
+        });
 }
 
-// retrieve images from custom search engine logic 
+// retrieve images from unsplash
 function searchImages(query) {
-  const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&key=${googleAPIKey}&cx=${cx}`;
+  const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${unsplashAPIKey}&per_page=1`;
 
   return fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.items && data.items.length > 0) {
-        return data.items.map(item => item.link);
-      } else {
-        console.log('No image results found for:', query);
-        return [];
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching image search results for:', query, error);
-      return [];
-    });
+      .then(response => response.json())
+      .then(data => {
+          if (data.results && data.results.length > 0) {
+              return [data.results[0].urls.small]; // Returns the URL of the first image result
+          } else {
+              console.log('No image results found for:', query);
+              return [];
+          }
+      })
+      .catch(error => {
+          console.error('Error fetching image search results for:', query, error);
+          return [];
+      });
 }
