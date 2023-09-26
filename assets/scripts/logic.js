@@ -181,13 +181,13 @@ document
 // .attractionImage: This class is for the image of each attraction.
 // It's an <img> element, and we will replace its src attribute with the actual image URL later.
 // --------------------------------
-// LOGIC FOR THE OpenTripMap API && SerpAPI
+// LOGIC FOR THE Here API key && Unsplash
 // ----------------------------------
 
 // Define API key and endpoint
 
 // Inputs city name and returns longitude and latitude (logic) 
-const hereAPIKey = '5YvWYuR8_pAQ8BkivCS2ErXdbj46NbD2QKZflflq9Nc'; // Replace with your Here API key
+const hereAPIKey = '5YvWYuR8_pAQ8BkivCS2ErXdbj46NbD2QKZflflq9Nc'; 
 
 function getAttractions(cityName) {
     const url = `https://geocode.search.hereapi.com/v1/geocode?q=${cityName}&apiKey=${hereAPIKey}`;
