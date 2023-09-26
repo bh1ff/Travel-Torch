@@ -34,7 +34,7 @@
 // LOGIC FOR THE OPENWEATHER API
 // ----------------------------------
 // API Refs
-import apiKey from './config.js';
+const apiKey = "0b26a0d735f1c68e879212c2650e5b40"; // Your OpenWeatherMap API key
 const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
 
 // display weather function
@@ -207,8 +207,7 @@ function OpenTripMapTest(cityName) {
 
 // google custom search api key
 
-import googleAPIKey from './config.js';
-
+import googleAPIKey from '../../config';
 // custom Search Engine created that only searches through tripadvisor.com :) 
 const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
 
