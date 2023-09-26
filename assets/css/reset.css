@@ -1,6 +1,6 @@
 /* css link test */
 * {
-    background-color: #ffe;
+    background-color: rgb(255, 255, 255);
 }
 
 #search {
@@ -22,3 +22,6 @@
     margin-left: 10px; 
 }
 
+.carousel-caption {
+    color: black;
+}
