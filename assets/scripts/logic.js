@@ -35,8 +35,10 @@
 // ----------------------------------
 // API Refs
 const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
-// import all from config.js (hidden file )
-import { googleAPIKey, OTMAPI, apiKey } from '../../config.js';
+
+const OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
+const apiKey = "0b26a0d735f1c68e879212c2650e5b40";
+const  unsplashAPIKey  = 'WDHxakYJ8jr7zoBMf4nvqqelgHRX0drmw_4XjrTRpuA';
 
 // display weather function
 function displayCurrentWeather(data) {
@@ -208,8 +210,6 @@ function OpenTripMapTest(cityName) {
 // google custom search api key
 
 
-// custom Search Engine created that only searches through tripadvisor.com :) 
-const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
 
 // function to get the city attractions and append the document
 function getTopAttractions(cityName, lat, lon) {
@@ -247,22 +247,22 @@ function getTopAttractions(cityName, lat, lon) {
     });
 }
 
-// retrieve images from custom search engine logic 
+// retrieve images from unsplash
 function searchImages(query) {
-  const url = `https://www.googleapis.com/customsearch/v1?q=${query}&searchType=image&key=${googleAPIKey}&cx=${cx}`;
+  const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${unsplashAPIKey}&per_page=1`;
 
   return fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.items && data.items.length > 0) {
-        return data.items.map(item => item.link);
-      } else {
-        console.log('No image results found for:', query);
-        return [];
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching image search results for:', query, error);
-      return [];
-    });
+      .then(response => response.json())
+      .then(data => {
+          if (data.results && data.results.length > 0) {
+              return [data.results[0].urls.small]; // Returns the URL of the first image result
+          } else {
+              console.log('No image results found for:', query);
+              return [];
+          }
+      })
+      .catch(error => {
+          console.error('Error fetching image search results for:', query, error);
+          return [];
+      });
 }
