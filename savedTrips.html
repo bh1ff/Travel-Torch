@@ -10,12 +10,14 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- Custom Reset CSS -->
     <link rel="stylesheet" href="./assets/css/reset.css">
+    <script src="https://kit.fontawesome.com/dedddbf0b5.js" crossorigin="anonymous"></script>
+    
 </head>
 
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Travel Torch</a>
+        <a class="navbar-brand" href="#"><img src="./assets/images/Travel torch logo.gif" alt="Logo" width="250" height="100"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,22 +39,142 @@
     <!-- Hero Section for Saved Trips -->
     <section id="saved-hero">
         <!-- Add your hero content specific to saved trips here -->
-    </section>
 
-    <!-- Display Saved Trips -->
-    <section id="saved-trips">
-        <!-- This section will be populated with the saved trips from local storage -->
+        
     </section>
+    <!-- Display Saved Trips in card holders 1 and 2 . this can be scaled up-->
+          
+    <div class="container-fluid">
+      <div class="row">
+        <div class="cardContainer col-lg-6 col-md-6 col-sm-12">
+    
+  <div class="card" style="width: 18rem;">
+    <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">1st Saved Destination</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Date</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Weather</h6>
+    <p class="card-text">Congrats! You're a step away to your Vacation. To Confirm your booking Click view.</p>
+    <a href="#" class="card-link">Click to view</a>
+    <a href="index.html" class="card-link">Change destination</a>
+  </div>
+</div>
+</div>
+<div class="cardContainer col-lg-6 col-md-6 col-sm-12">
+<div class="card" style="width: 18rem;">
+  <img src="..." class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">2nd Saved Destination</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Date</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Weather</h6>
+    <p class="card-text">If you prefer this destination, CLick the view button bellow, We've got you covered.</p>
+    <a href="#" class="card-link">Click to view</a>
+    <a href="index.html" class="card-link">Change destination</a>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+
+<!-- section for Saved Locations-->
+<section id="savedLocations" > 
+  <!-- Carousels placeholder for the Saved trips-->
+  
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+  <div id="carouselExampleCaptions" class="carousel slide">
+   
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="image-container">
+        <img src="https://media.istockphoto.com/id/508151164/photo/houses-of-parliament-at-night-westminster-london-uk.jpg?s=612x612&w=0&k=20&c=mZ3dhekDenTQgH-Xp2A7MHkr1BhwTaRWwvqJ5iF96BQ=" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h4>First Saved Trip</h4>
+          <p>Tourist locations you can visit.</p>
+        </div>
+      </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-container">
+        <img src="https://www.signaturetownhousehydepark.co.uk/blog/wp-content/uploads/2023/02/Tower-Bridge.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h4>Second Saved Trip</h4>
+          <p>second Tourist locations you can visit</p>
+        </div>
+      </div>
+      </div>
+      <div class="carousel-item">
+        <div class="image-container">
+        <img src="https://media.timeout.com/images/103938223/1920/1080/image.jpg" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h4>Third Saved Trip</h4>
+          <p>third tourist locations you can visit.</p>
+        </div>
+      </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+      </button>
+  </div>
+
+  
+  <!-- <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://media.istockphoto.com/id/508151164/photo/houses-of-parliament-at-night-westminster-london-uk.jpg?s=612x612&w=0&k=20&c=mZ3dhekDenTQgH-Xp2A7MHkr1BhwTaRWwvqJ5iF96BQ=" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="..." class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="..." class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div> -->
+</section>
+
 
     <!-- Modal for Error Messages -->
     <div class="modal" id="errorModal">
         <!-- Modal content goes here -->
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <!-- Add your footer content here -->
-    </footer>
+    <!--Footer -->
+     <footer class="bg-dark text-dark py-5">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-4">
+                  <h7>Contact Us</h7>
+                  <ul class="list-unstyled">
+                      <li><a href="https://github.com/bh1ff"><i class="fa-brands fa-github"></i></a> Ahmed</li>
+                      <li><a href="https://github.com/michaelfame"><i class="fa-brands fa-github"></i></a> Michael</li>
+                      <li><a href="https://github.com/Umhar97"><i class="fa-brands fa-github Umhar"></i></a> Umhar</li>
+                      <li><a href="https://github.com/bh1ff/Travel-Torch"><i class="fa-brands fa-github"></i></a> Repository</li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </footer>
 
     <!-- jQuery -->
     <script src="//code.jquery.com/jquery-1.12.4.js"></script>
