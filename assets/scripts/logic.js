@@ -34,8 +34,9 @@
 // LOGIC FOR THE OPENWEATHER API
 // ----------------------------------
 // API Refs
-const apiKey = "0b26a0d735f1c68e879212c2650e5b40"; // Your OpenWeatherMap API key
 const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
+// import all from config.js (hidden file )
+import { googleAPIKey, OTMAPI, apiKey } from '../../config.js';
 
 // display weather function
 function displayCurrentWeather(data) {
@@ -182,7 +183,6 @@ document
 // ----------------------------------
 
 // Define API key and endpoint
-var OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
 
 // Inputs city name and returns longitude and latitude (logic) 
 function OpenTripMapTest(cityName) {
@@ -207,7 +207,6 @@ function OpenTripMapTest(cityName) {
 
 // google custom search api key
 
-import googleAPIKey  from '../../config.js';
 
 // custom Search Engine created that only searches through tripadvisor.com :) 
 const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
