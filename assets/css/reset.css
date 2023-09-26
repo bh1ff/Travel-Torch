@@ -1,6 +1,6 @@
 /* css link test */
 * {
-    background-color: #ffe;
+    background-color: rgb(255, 255, 255);
 }
 
 #search {
@@ -20,4 +20,8 @@
     padding: 10px 20px;
     font-size: 16px;
     margin-left: 10px; 
+}
+
+.carousel-caption {
+    color: black;
 }
