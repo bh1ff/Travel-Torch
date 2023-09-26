@@ -206,7 +206,8 @@ function OpenTripMapTest(cityName) {
 }
 
 // google custom search api key
-const googleAPIKey = 'AIzaSyDUT0XknlL2dbH-eGlu_tPQvs7xh_tMb48';
+
+import googleAPIKey  from '../../config.js';
 
 // custom Search Engine created that only searches through tripadvisor.com :) 
 const cx = '86916a4c88909494d'; // Your Custom Search Engine ID
