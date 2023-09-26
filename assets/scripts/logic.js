@@ -209,7 +209,7 @@ function getAttractions(cityName) {
 }
 
 function fetchTopAttractions(cityName, lat, lon) {
-    const url = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}`;
+    const url = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}&lang=en-GB`;
 
     fetch(url)
         .then(response => response.json())
