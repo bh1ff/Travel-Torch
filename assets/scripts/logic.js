@@ -34,7 +34,7 @@
 // LOGIC FOR THE OPENWEATHER API
 // ----------------------------------
 // API Refs
-const apiKey = "0b26a0d735f1c68e879212c2650e5b40"; // Your OpenWeatherMap API key
+import apiKey from './config.js';
 const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
 
 // display weather function
