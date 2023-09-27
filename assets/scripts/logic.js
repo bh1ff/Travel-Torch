@@ -167,6 +167,16 @@ document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
 
+  // Event listener for the "Enter" key in the search input
+const searchInput = document.getElementById("search-input");
+if (searchInput) {
+  searchInput.addEventListener("keydown", function(cityName) {
+    if (cityName.key === "Enter") {
+      handleSearch(cityName);
+    }
+  });
+}
+
 // --------------------------------
 // Notes for the Styling Team
 // #attractionsTitle: This ID is for the title of the attractions section.
