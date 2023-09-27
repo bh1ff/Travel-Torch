@@ -71,9 +71,9 @@ function displayCurrentWeather(data) {
 
   // Append elements to currentWeatherDiv
   currentWeatherDiv.appendChild(cityName);
-  currentWeatherDiv.appendChild(temperature);
-  currentWeatherDiv.appendChild(humidity);
-  currentWeatherDiv.appendChild(windSpeed);
+  // currentWeatherDiv.appendChild(temperature);
+  // currentWeatherDiv.appendChild(humidity);
+  // currentWeatherDiv.appendChild(windSpeed);
 
   // Append currentWeatherDiv to infoDiv
   infoDiv.appendChild(currentWeatherDiv);
@@ -166,6 +166,16 @@ function get5DayForecast(cityName) {
 document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
+
+  // Event listener for the "Enter" key in the search input
+const searchInput = document.getElementById("search-input");
+if (searchInput) {
+  searchInput.addEventListener("keydown", function(cityName) {
+    if (cityName.key === "Enter") {
+      handleSearch(cityName);
+    }
+  });
+}
 
 // --------------------------------
 // Notes for the Styling Team
