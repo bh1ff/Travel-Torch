@@ -72,3 +72,7 @@
     justify-content: space-around;
     align-items: space-around;
 }
+
+#save-button-card {
+    display: none;
+}
