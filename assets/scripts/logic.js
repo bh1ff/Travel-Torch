@@ -71,9 +71,9 @@ function displayCurrentWeather(data) {
 
   // Append elements to currentWeatherDiv
   currentWeatherDiv.appendChild(cityName);
-  currentWeatherDiv.appendChild(temperature);
-  currentWeatherDiv.appendChild(humidity);
-  currentWeatherDiv.appendChild(windSpeed);
+  // currentWeatherDiv.appendChild(temperature);
+  // currentWeatherDiv.appendChild(humidity);
+  // currentWeatherDiv.appendChild(windSpeed);
 
   // Append currentWeatherDiv to infoDiv
   infoDiv.appendChild(currentWeatherDiv);
