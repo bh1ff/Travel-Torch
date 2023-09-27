@@ -16,8 +16,8 @@
 <body>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Travel Torch</a>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #E7ECF7">
+        <a class="navbar-brand" href="#"><img src="./assets/images/Travel torch logo.gif" alt="Logo" width="200" height="80"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,6 @@
             </ul>
         </div>
     </nav>
-    <!-- Add your navbar content here -->
 
     <!-- Hero Section -->
     <section id="hero">
@@ -60,51 +59,66 @@
 
     <!-- Carousel -->
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel"
-        style="padding-left: 50px; padding-right: 50px; padding-bottom: 50px;">
-        <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100"
-                    src="https://media.cntraveller.com/photos/62d14e029bbb08746e6fd952/3:2/w_6000,h_4000,c_limit/barcelonaGettyImages-1386922276.jpeg"
-                    alt="firstSlide">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Barcelona</h5>
-                    <p>Barcelona, located on the northeastern coast of Spain, is a vibrant and cosmopolitan city known
-                        for its stunning architecture, rich cultural heritage, and beautiful Mediterranean beaches</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="https://media.timeout.com/images/105859738/image.jpg" alt="secondSlide">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Istanbul</h5>
-                    <p></p>
-                </div>
-
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="..." alt="Third slide">
-            </div>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Stuck for Ideas?</h1>
+          <p class="lead">These are our 3 of the most visited destination in the world</p>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      </div>
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel" >
+        <div id="carouselExampleCaptions" class="carousel slide">
+      
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="image-container">
+              <img src="https://media.cntraveller.com/photos/62d14e029bbb08746e6fd952/3:2/w_6000,h_4000,c_limit/barcelonaGettyImages-1386922276.jpeg" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h4>Barcelona</h4>
+                <p>Located on the northeastern coast of Spain, is a vibrant and cosmopolitan city known
+                    for its stunning architecture, rich cultural heritage, and beautiful Mediterranean beaches</p>
+              </div>
+            </div>
+            </div>
+            <div class="carousel-item">
+              <div class="image-container">
+              <img src="https://media.timeout.com/images/105859738/image.jpg" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h4>Istanbul</h4>
+                <p>A city straddling two continents, is a mesmerizing blend of rich history, vibrant culture, and stunning architecture, making it a truly unique and captivating destination.</p>
+              </div>
+            </div>
+            </div>
+            <div class="carousel-item">
+              <div class="image-container">
+              <img src="https://www.planetware.com/wpimages/2023/05/japan-tokyo-top-attractions-intro-paragraph-sensoji-temple.jpg" class="d-block w-100" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                <h4>Tokyo</h4>
+                <p>The bustling capital of Japan, seamlessly combines ancient traditions with futuristic innovation, offering a dynamic urban experience like no other.</p>
+              </div>
+            </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+            <span class="visually-hidden">Next</span>
+            </button>
 
     <!-- Modal for Error Messages -->
     <div class="modal" id="errorModal">
         <!-- Modal content goes here -->
     </div>
+
     
+
     <!--Get started card-->
     <div class="container" id="getStarted">
         <div class="row">
@@ -112,8 +126,7 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Search any city you want to visit</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
                     </div>
                 </div>
             </div>
@@ -121,8 +134,7 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Save the city to Saved Trips page</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
                     </div>
                 </div>
             </div>
@@ -130,28 +142,23 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">View your saved destination in the Saved Trips page</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer id="footer" class="bg-dark text-dark py-5">
+    <footer class="bg-dark text-dark py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h5>Contact Us</h5>
+                    <h7>Contact Us</h7>
                     <ul class="list-unstyled">
                         <li><a href="https://github.com/bh1ff"><i class="fa-brands fa-github"></i></a> Ahmed</li>
-                        <li><a href="https://github.com/michaelfame"><i class="fa-brands fa-github"></i></a> Michael
-                        </li>
-                        <li><a href="https://github.com/Umhar97"><i class="fa-brands fa-github Umhar"></i></a> Umhar
-                        </li>
-                        <li><a href="https://github.com/bh1ff/Travel-Torch"><i class="fa-brands fa-github"></i></a>
-                            Repository</li>
+                        <li><a href="https://github.com/michaelfame"><i class="fa-brands fa-github"></i></a> Michael</li>
+                        <li><a href="https://github.com/Umhar97"><i class="fa-brands fa-github Umhar"></i></a> Umhar</li>
+                        <li><a href="https://github.com/bh1ff/Travel-Torch"><i class="fa-brands fa-github"></i></a> Repository</li>
                     </ul>
                 </div>
             </div>
@@ -172,8 +179,8 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
     <!-- Custom JS -->
-    <script type="module" src="./assets/scripts/logic.js"></script>
-    <script type= "module" src="./assets/scripts/datastore.js"></script>
+    <script src="./assets/scripts/logic.js"></script>
+    <script src="./assets/scripts/datastore.js"></script>
 </body>
 
 </html>
