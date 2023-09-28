@@ -38,10 +38,14 @@ const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
 
 const OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
 const apiKey = "0b26a0d735f1c68e879212c2650e5b40";
-const  unsplashAPIKey  = 'WDHxakYJ8jr7zoBMf4nvqqelgHRX0drmw_4XjrTRpuA';
+const unsplashAPIKey = "WDHxakYJ8jr7zoBMf4nvqqelgHRX0drmw_4XjrTRpuA";
 
 // display weather function
 function displayCurrentWeather(data) {
+  if (!data || !data.main) {
+    console.error("Invalid weather data received.");
+    return;
+  }
   const infoDiv = document.getElementById("info");
 
   // Clear previous data
@@ -58,7 +62,7 @@ function displayCurrentWeather(data) {
 
   const temperature = document.createElement("p");
   temperature.textContent = `Temperature: ${data.main.temp}°C`;
-  console.log(data.main)
+  console.log(data.main);
   temperature.classList.add("current-temperature");
 
   const humidity = document.createElement("p");
@@ -71,16 +75,24 @@ function displayCurrentWeather(data) {
 
   // Append elements to currentWeatherDiv
   currentWeatherDiv.appendChild(cityName);
-  // currentWeatherDiv.appendChild(temperature);
-  // currentWeatherDiv.appendChild(humidity);
-  // currentWeatherDiv.appendChild(windSpeed);
+  currentWeatherDiv.appendChild(temperature);
+  currentWeatherDiv.appendChild(humidity);
+  currentWeatherDiv.appendChild(windSpeed);
 
   // Append currentWeatherDiv to infoDiv
   infoDiv.appendChild(currentWeatherDiv);
+
+  localStorage.setItem("currentWeather", JSON.stringify(data));
+  // Log the stored data
+  console.log("Stored Current Weather Data:", JSON.parse(localStorage.getItem("currentWeather")));
 }
 
 // display 5 day forecast function
 function display5DayForecast(data) {
+  if (!data || !data.list || !Array.isArray(data.list)) {
+    console.error("Invalid forecast data received.");
+    return;
+  }
   const infoDiv = document.getElementById("info");
   const forecastDiv = document.createElement("div");
   forecastDiv.id = "fiveDayForecast";
@@ -119,6 +131,10 @@ function display5DayForecast(data) {
   }
 
   infoDiv.appendChild(forecastDiv);
+  // Store 5-day forecast data in local storage
+  localStorage.setItem("fiveDayForecast", JSON.stringify(data));
+  // Log the stored data
+  console.log("Stored 5-Day Forecast Data:", JSON.parse(localStorage.getItem("fiveDayForecast")));
 }
 
 // handle search function
@@ -167,10 +183,10 @@ document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
 
-  // Event listener for the "Enter" key in the search input
+// Event listener for the "Enter" key in the search input
 const searchInput = document.getElementById("search-input");
 if (searchInput) {
-  searchInput.addEventListener("keydown", function(cityName) {
+  searchInput.addEventListener("keydown", function (cityName) {
     if (cityName.key === "Enter") {
       handleSearch(cityName);
     }
@@ -196,128 +212,91 @@ if (searchInput) {
 
 // Define API key and endpoint
 
-// Inputs city name and returns longitude and latitude (logic) 
-const hereAPIKey = '5YvWYuR8_pAQ8BkivCS2ErXdbj46NbD2QKZflflq9Nc'; 
+// Inputs city name and returns longitude and latitude (logic)
+const hereAPIKey = "5YvWYuR8_pAQ8BkivCS2ErXdbj46NbD2QKZflflq9Nc";
 
 function getAttractions(cityName) {
-    const url = `https://geocode.search.hereapi.com/v1/geocode?q=${cityName}&apiKey=${hereAPIKey}`;
+  const url = `https://geocode.search.hereapi.com/v1/geocode?q=${cityName}&apiKey=${hereAPIKey}`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.items && data.items.length > 0) {
-                const lat = data.items[0].position.lat;
-                const lon = data.items[0].position.lng;
-                fetchTopAttractions(cityName, lat, lon);
-            } else {
-                console.warn('No location data found for:', cityName);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching location data:', error);
-        });
+  fetch(url)
+    .then((response) => response.json())
+    .then(async (data) => {
+      if (data.items && data.items.length > 0) {
+        const lat = data.items[0].position.lat;
+        const lon = data.items[0].position.lng;
+        fetchTopAttractions(cityName, lat, lon);
+      } else {
+        console.warn("No location data found for:", cityName);
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching location data:", error);
+    });
 }
 
 function fetchTopAttractions(cityName, lat, lon) {
-    const url = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}&lang=en-GB`;
+  const url = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}&lang=en-GB`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(async data => {
-            const infoDiv = document.getElementById("info");
+  fetch(url)
+    .then((response) => response.json())
+    .then(async (data) => {
+      const infoDiv = document.getElementById("info");
 
-            const attractionsTitle = document.createElement("h1");
-            attractionsTitle.textContent = `Top Attractions in ${cityName}`;
-            attractionsTitle.id = "attractionsTitle";
-            infoDiv.appendChild(attractionsTitle);
+      const attractionsTitle = document.createElement("h1");
+      attractionsTitle.textContent = `Top Attractions in ${cityName}`;
+      attractionsTitle.id = "attractionsTitle";
+      infoDiv.appendChild(attractionsTitle);
 
-            for (const item of data.items) {
-                const attractionName = item.title;
+      for (const item of data.items) {
+        const attractionName = item.title;
 
-                const attractionElement = document.createElement("h2");
-                attractionElement.textContent = attractionName;
-                attractionElement.className = "attractionName";
-                infoDiv.appendChild(attractionElement);
+        const attractionElement = document.createElement("h2");
+        attractionElement.textContent = attractionName;
+        attractionElement.className = "attractionName";
+        infoDiv.appendChild(attractionElement);
 
-                const imageUrls = await searchImages(attractionName);
-                if (imageUrls && imageUrls.length) {
-                    const imagePlaceholder = document.createElement("img");
-                    imagePlaceholder.src = imageUrls[0];
-                    imagePlaceholder.className = "attractionImage";
-                    infoDiv.appendChild(imagePlaceholder);
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching top attractions:', error);
-        });
-}
+        const imageUrls = await searchImages(attractionName);
+        if (imageUrls && imageUrls.length) {
+          const imagePlaceholder = document.createElement("img");
+          imagePlaceholder.src = imageUrls[0];
+          imagePlaceholder.className = "attractionImage";
+          infoDiv.appendChild(imagePlaceholder);
+        }
+      }
+    })
+
+    
+    .catch((error) => {
+      console.error("Error fetching top attractions:", error);
+    });
+
+    // Store top attractions data in local storage
+    if (data && data.items) {
+      localStorage.setItem("topAttractions", JSON.stringify(data.items));
+      // Log the stored data
+      console.log("Stored Top Attractions Data:", JSON.parse(localStorage.getItem("topAttractions")));
+    } else {
+      console.error("Invalid attractions data received.");
+    }
+};
 
 // retrieve images from unsplash
 function searchImages(query) {
   const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${unsplashAPIKey}&per_page=1`;
 
   return fetch(url)
-      .then(response => response.json())
-      .then(data => {
-          if (data.results && data.results.length > 0) {
-              return [data.results[0].urls.small]; // Returns the URL of the first image result
-          } else {
-              console.log('No image results found for:', query);
-              return [];
-          }
-      })
-      .catch(error => {
-          console.error('Error fetching image search results for:', query, error);
-          return [];
-      });
-}
-
-// Datastore Logic
-// Event listener for the "save-trip" button
-document.getElementById("save-trip").addEventListener("click", function() {
-  // Extract current weather and attractions data
-  const currentWeather = {
-      cityName: document.querySelector(".city-name").textContent,
-      temperature: document.querySelector(".current-temperature").textContent,
-      humidity: document.querySelector(".current-humidity").textContent,
-      windSpeed: document.querySelector(".current-wind-speed").textContent
-  };
-  const attractions = Array.from(document.querySelectorAll(".attractionName")).map(attraction => attraction.textContent);
-
-    // Store the data in local storage
-    const tripData = {
-        weather: currentWeather,
-        attractions: attractions
-    };
-    localStorage.setItem("savedTrip", JSON.stringify(tripData));
-
-    // Redirect to savedtrips.html to display the saved data
-    window.location.href = "savedtrips.html";
-});
-// Check if on savedtrips.html page
-if (window.location.pathname.endsWith("savedtrips.html")) {
-  const savedTrip = JSON.parse(localStorage.getItem("savedTrip"));
-
-  if (savedTrip) {
-      // Display the saved data in a modal and card
-      const modalContent = document.getElementById("modal-content");
-      const cardContent = document.getElementById("card-content");
-
-      // Add weather data to modal and card
-      for (const key in savedTrip.weather) {
-          const pElement = document.createElement("p");
-          pElement.textContent = savedTrip.weather[key];
-          modalContent.appendChild(pElement.cloneNode(true));
-          cardContent.appendChild(pElement);
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.results && data.results.length > 0) {
+        return [data.results[0].urls.small]; // Returns the URL of the first image result
+      } else {
+        console.log("No image results found for:", query);
+        return [];
       }
-
-      // Add attractions data to modal and card
-      savedTrip.attractions.forEach(attraction => {
-          const h2Element = document.createElement("h2");
-          h2Element.textContent = attraction;
-          modalContent.appendChild(h2Element.cloneNode(true));
-          cardContent.appendChild(h2Element);
-      });
-  }
+    })
+    .catch((error) => {
+      console.error("Error fetching image search results for:", query, error);
+      return [];
+    });
 }
+

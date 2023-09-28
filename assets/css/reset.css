@@ -72,3 +72,6 @@
     width: 40%;
     margin: 0 auto;
 }
+.current-temperature, .current-humidity, .current-wind-speed {
+    display: none;
+}
