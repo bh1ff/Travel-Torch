@@ -295,4 +295,29 @@ document.getElementById("save-trip").addEventListener("click", function() {
     // Redirect to savedtrips.html to display the saved data
     window.location.href = "savedtrips.html";
 });
+// Check if on savedtrips.html page
+if (window.location.pathname.endsWith("savedtrips.html")) {
+  const savedTrip = JSON.parse(localStorage.getItem("savedTrip"));
 
+  if (savedTrip) {
+      // Display the saved data in a modal and card
+      const modalContent = document.getElementById("modal-content");
+      const cardContent = document.getElementById("card-content");
+
+      // Add weather data to modal and card
+      for (const key in savedTrip.weather) {
+          const pElement = document.createElement("p");
+          pElement.textContent = savedTrip.weather[key];
+          modalContent.appendChild(pElement.cloneNode(true));
+          cardContent.appendChild(pElement);
+      }
+
+      // Add attractions data to modal and card
+      savedTrip.attractions.forEach(attraction => {
+          const h2Element = document.createElement("h2");
+          h2Element.textContent = attraction;
+          modalContent.appendChild(h2Element.cloneNode(true));
+          cardContent.appendChild(h2Element);
+      });
+  }
+}
