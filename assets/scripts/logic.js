@@ -272,3 +272,27 @@ function searchImages(query) {
           return [];
       });
 }
+
+// Datastore Logic
+// Event listener for the "save-trip" button
+document.getElementById("save-trip").addEventListener("click", function() {
+  // Extract current weather and attractions data
+  const currentWeather = {
+      cityName: document.querySelector(".city-name").textContent,
+      temperature: document.querySelector(".current-temperature").textContent,
+      humidity: document.querySelector(".current-humidity").textContent,
+      windSpeed: document.querySelector(".current-wind-speed").textContent
+  };
+  const attractions = Array.from(document.querySelectorAll(".attractionName")).map(attraction => attraction.textContent);
+
+    // Store the data in local storage
+    const tripData = {
+        weather: currentWeather,
+        attractions: attractions
+    };
+    localStorage.setItem("savedTrip", JSON.stringify(tripData));
+
+    // Redirect to savedtrips.html to display the saved data
+    window.location.href = "savedtrips.html";
+});
+
