@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     // Add event listener to the "View trip" button
-    const viewTripButton = document.querySelector("[data-bs-target='#tripModal']");
+    const viewTripButton = document.querySelector("#viewSaved");
     if (viewTripButton) {
         viewTripButton.addEventListener("click", displaySavedTripDetails);
+        console.log("success")
     }
 });
 
@@ -48,7 +49,6 @@ function displaySavedTripDetails() {
 
         // Display top attractions
         const attractionsDiv = document.createElement("div");
-        attractionsDiv.innerHTML = `<h1 id="attractionsTitle">Top Attractions in ${currentWeather.name}</h1>`;
         topAttractions.forEach(attraction => {
             const attractionElement = document.createElement("div");
             attractionElement.innerHTML = `
