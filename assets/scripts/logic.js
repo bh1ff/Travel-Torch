@@ -235,50 +235,48 @@ function getAttractions(cityName) {
 }
 
 function fetchTopAttractions(cityName, lat, lon) {
-  const url = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}&lang=en-GB`;
+  const endpoint = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}&lang=en-GB`;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then(async (data) => {
+  fetch(endpoint)
+    .then(response => response.json())
+    .then(async data => {
+      if (!data || !data.items) {
+        console.error("Invalid attractions data received.");
+        return;
+      }
+
       const infoDiv = document.getElementById("info");
+      const attractionsHeader = document.createElement("h1");
+      attractionsHeader.textContent = `Top Attractions in ${cityName}`;
+      attractionsHeader.id = "attractionsTitle";
+      infoDiv.appendChild(attractionsHeader);
 
-      const attractionsTitle = document.createElement("h1");
-      attractionsTitle.textContent = `Top Attractions in ${cityName}`;
-      attractionsTitle.id = "attractionsTitle";
-      infoDiv.appendChild(attractionsTitle);
+      for (const attraction of data.items) {
+        const attractionTitle = document.createElement("h2");
+        attractionTitle.textContent = attraction.title;
+        attractionTitle.className = "attractionName";
+        infoDiv.appendChild(attractionTitle);
 
-      for (const item of data.items) {
-        const attractionName = item.title;
-
-        const attractionElement = document.createElement("h2");
-        attractionElement.textContent = attractionName;
-        attractionElement.className = "attractionName";
-        infoDiv.appendChild(attractionElement);
-
-        const imageUrls = await searchImages(attractionName);
-        if (imageUrls && imageUrls.length) {
-          const imagePlaceholder = document.createElement("img");
-          imagePlaceholder.src = imageUrls[0];
-          imagePlaceholder.className = "attractionImage";
-          infoDiv.appendChild(imagePlaceholder);
+        const imageUrls = await searchImages(attraction.title);
+        if (imageUrls && imageUrls.length > 0) {
+          const attractionImage = document.createElement("img");
+          attractionImage.src = imageUrls[0];
+          attractionImage.className = "attractionImage";
+          infoDiv.appendChild(attractionImage);
         }
       }
-    })
 
-    
-    .catch((error) => {
+      // Store top attractions data in local storage
+      localStorage.setItem("topAttractions", JSON.stringify(data.items));
+      console.log("Stored Top Attractions Data:", JSON.parse(localStorage.getItem("topAttractions")));
+
+    })
+    .catch(error => {
       console.error("Error fetching top attractions:", error);
     });
+}
 
-    // Store top attractions data in local storage
-    if (data && data.items) {
-      localStorage.setItem("topAttractions", JSON.stringify(data.items));
-      // Log the stored data
-      console.log("Stored Top Attractions Data:", JSON.parse(localStorage.getItem("topAttractions")));
-    } else {
-      console.error("Invalid attractions data received.");
-    }
-};
+
 
 // retrieve images from unsplash
 function searchImages(query) {
