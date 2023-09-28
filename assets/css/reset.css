@@ -67,7 +67,23 @@
     align-items: space-around;
 }
 
-.attractionName {
+/* Flexbox container for the carousel */
+#carouselExampleAutoplaying {
+    width: 40%;
+    margin: 0 auto;
+}
+.current-temperature, .current-humidity, .current-wind-speed {
+    display: none;
+}
+
+#savedTripsCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 15vh auto;
+    min-height: 40vh;
+    text-align: center;
+  .attractionName {
     display: flex;
     justify-content: space-around;
     align-items: space-around;
@@ -75,4 +91,4 @@
 
 #save-button-card {
     display: none;
-}
+  }
