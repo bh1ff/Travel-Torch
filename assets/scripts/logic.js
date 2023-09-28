@@ -298,3 +298,5 @@ function searchImages(query) {
     });
 }
 
+
+
