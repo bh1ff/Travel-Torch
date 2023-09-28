@@ -1,4 +1,3 @@
-// ADVICE FOR OTHERS LOOKING AT THIS DOC
 // ----------------------------------
 // This document is a work in progress. It will be updated as the project progresses
 // ----------------------------------
@@ -29,18 +28,19 @@
 // .forecast-date, .forecast-icon, .forecast-temperature, .forecast-humidity:
 // These class selectors target the individual elements within each forecast day.
 
-// App Logic
+// ADVICE FOR OTHERS LOOKING AT THIS DOC
 // ----------------------------------
+// This document is a work in progress. It will be updated as the project progresses
+// ----------------------------------
+
 // LOGIC FOR THE OPENWEATHER API
 // ----------------------------------
 // API Refs
 const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
-
 const OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
 const apiKey = "0b26a0d735f1c68e879212c2650e5b40";
-const unsplashAPIKey = "WDHxakYJ8jr7zoBMf4nvqqelgHRX0drmw_4XjrTRpuA";
 
-// display weather function
+// Display current weather function
 function displayCurrentWeather(data) {
   if (!data || !data.main) {
     console.error("Invalid weather data received.");
@@ -62,7 +62,6 @@ function displayCurrentWeather(data) {
 
   const temperature = document.createElement("p");
   temperature.textContent = `Temperature: ${data.main.temp}°C`;
-  console.log(data.main);
   temperature.classList.add("current-temperature");
 
   const humidity = document.createElement("p");
@@ -83,11 +82,13 @@ function displayCurrentWeather(data) {
   infoDiv.appendChild(currentWeatherDiv);
 
   localStorage.setItem("currentWeather", JSON.stringify(data));
-  // Log the stored data
-  console.log("Stored Current Weather Data:", JSON.parse(localStorage.getItem("currentWeather")));
+  console.log(
+    "Stored Current Weather Data:",
+    JSON.parse(localStorage.getItem("currentWeather"))
+  );
 }
 
-// display 5 day forecast function
+// Display 5-day forecast function
 function display5DayForecast(data) {
   if (!data || !data.list || !Array.isArray(data.list)) {
     console.error("Invalid forecast data received.");
@@ -100,7 +101,6 @@ function display5DayForecast(data) {
 
   for (let i = 0; i < data.list.length; i += 8) {
     const dayData = data.list[i];
-
     const dayDiv = document.createElement("div");
     dayDiv.classList.add("forecast-day");
 
@@ -131,26 +131,26 @@ function display5DayForecast(data) {
   }
 
   infoDiv.appendChild(forecastDiv);
-  // Store 5-day forecast data in local storage
   localStorage.setItem("fiveDayForecast", JSON.stringify(data));
-  // Log the stored data
-  console.log("Stored 5-Day Forecast Data:", JSON.parse(localStorage.getItem("fiveDayForecast")));
+  console.log(
+    "Stored 5-Day Forecast Data:",
+    JSON.parse(localStorage.getItem("fiveDayForecast"))
+  );
 }
 
-// handle search function
+// Handle search function
 function handleSearch() {
   const cityName = document.getElementById("search-input").value.trim();
   if (cityName) {
     getCurrentWeather(cityName);
     get5DayForecast(cityName);
-    //open trip map test call
     getAttractions(cityName);
   } else {
     console.warn("Please enter a city name.");
   }
 }
 
-// current weather retrieval function
+// Current weather retrieval function
 function getCurrentWeather(cityName) {
   let queryURL = `${weatherBaseURL}weather?q=${cityName}&appid=${apiKey}&units=metric`;
 
@@ -164,7 +164,7 @@ function getCurrentWeather(cityName) {
     });
 }
 
-// five day forecast retrieval function
+// Five-day forecast retrieval function
 function get5DayForecast(cityName) {
   let queryURL = `${weatherBaseURL}forecast?q=${cityName}&appid=${apiKey}&units=metric`;
 
@@ -178,7 +178,7 @@ function get5DayForecast(cityName) {
     });
 }
 
-// added button listener
+// Added button listener
 document
   .getElementById("search-button")
   .addEventListener("click", handleSearch);
@@ -186,34 +186,17 @@ document
 // Event listener for the "Enter" key in the search input
 const searchInput = document.getElementById("search-input");
 if (searchInput) {
-  searchInput.addEventListener("keydown", function (cityName) {
-    if (cityName.key === "Enter") {
-      handleSearch(cityName);
+  searchInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      handleSearch(event);
     }
   });
 }
 
-// --------------------------------
-// Notes for the Styling Team
-// #attractionsTitle: This ID is for the title of the attractions section.
-// It's an <h1> element that displays "Top Attractions in [City Name]".
-
-// .attractionName: This class is for each attraction name.
-//They are <h2> elements that display the name of the attraction.
-
-// .wikiData: This class is for the Wikipedia data of each attraction.
-//It's a <p> element that displays a brief description or data from Wikipedia for each attraction.
-
-// .attractionImage: This class is for the image of each attraction.
-// It's an <img> element, and we will replace its src attribute with the actual image URL later.
-// --------------------------------
 // LOGIC FOR THE Here API key && Unsplash
 // ----------------------------------
-
-// Define API key and endpoint
-
-// Inputs city name and returns longitude and latitude (logic)
 const hereAPIKey = "5YvWYuR8_pAQ8BkivCS2ErXdbj46NbD2QKZflflq9Nc";
+const unsplashAPIKey = "WDHxakYJ8jr7zoBMf4nvqqelgHRX0drmw_4XjrTRpuA";
 
 function getAttractions(cityName) {
   const url = `https://geocode.search.hereapi.com/v1/geocode?q=${cityName}&apiKey=${hereAPIKey}`;
@@ -238,8 +221,8 @@ function fetchTopAttractions(cityName, lat, lon) {
   const endpoint = `https://browse.search.hereapi.com/v1/browse?at=${lat},${lon}&categories=100-1000-0000&limit=5&apiKey=${hereAPIKey}&lang=en-GB`;
 
   fetch(endpoint)
-    .then(response => response.json())
-    .then(async data => {
+    .then((response) => response.json())
+    .then(async (data) => {
       if (!data || !data.items) {
         console.error("Invalid attractions data received.");
         return;
@@ -266,19 +249,18 @@ function fetchTopAttractions(cityName, lat, lon) {
         }
       }
 
-      // Store top attractions data in local storage
       localStorage.setItem("topAttractions", JSON.stringify(data.items));
-      console.log("Stored Top Attractions Data:", JSON.parse(localStorage.getItem("topAttractions")));
-
+      console.log(
+        "Stored Top Attractions Data:",
+        JSON.parse(localStorage.getItem("topAttractions"))
+      );
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Error fetching top attractions:", error);
     });
 }
 
-
-
-// retrieve images from unsplash
+// Retrieve images from Unsplash
 function searchImages(query) {
   const url = `https://api.unsplash.com/search/photos?query=${query}&client_id=${unsplashAPIKey}&per_page=1`;
 
@@ -286,7 +268,7 @@ function searchImages(query) {
     .then((response) => response.json())
     .then((data) => {
       if (data.results && data.results.length > 0) {
-        return [data.results[0].urls.small]; // Returns the URL of the first image result
+        return [data.results[0].urls.small];
       } else {
         console.log("No image results found for:", query);
         return [];
@@ -297,6 +279,3 @@ function searchImages(query) {
       return [];
     });
 }
-
-
-
