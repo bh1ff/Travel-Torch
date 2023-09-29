@@ -83,6 +83,7 @@
     margin: 15vh auto;
     min-height: 40vh;
     text-align: center;
+}
   .attractionName {
     display: flex;
     justify-content: space-around;
