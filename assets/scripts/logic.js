@@ -36,9 +36,9 @@
 // LOGIC FOR THE OPENWEATHER API
 // ----------------------------------
 // API Refs
-const weatherBaseURL = "https://api.openweathermap.org/data/2.5/";
-const OTMAPI = "5ae2e3f221c38a28845f05b66a252504e753f805146378d6cae9fabd";
-const apiKey = "0b26a0d735f1c68e879212c2650e5b40";
+const weatherBaseURL = "removed for security";
+const OTMAPI = "removed for securityd";
+const apiKey = "removed for security";
 
 // Display current weather function
 function displayCurrentWeather(data) {
